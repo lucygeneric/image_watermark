@@ -41,17 +41,6 @@ class ImageWatermark {
     ///Original Image
     final originalImage = ui.decodeImage(imgBytes)!;
 
-    ///Add Watermark
-    ui.drawString(
-      originalImage,
-      font ?? ui.arial_48,
-      dstX,
-      dstY,
-      watermarkText,
-      color: color.value,
-      rightJustify: rightJustify,
-    );
-
     ///Encode image to PNG
     final wmImage = ui.encodePng(originalImage);
 
@@ -86,14 +75,6 @@ class ImageWatermark {
   }) async {
     ///Original Image
     final originalImage = ui.decodeImage(imgBytes)!;
-
-    ///Add Watermark
-    ui.drawStringCentered(
-      originalImage,
-      font ?? ui.arial_48,
-      watermarktext,
-      color: color.value,
-    );
 
     ///Encode image to PNG
     final wmImage = ui.encodePng(originalImage);
@@ -132,13 +113,10 @@ class ImageWatermark {
 
     // add watermark over originalImage
     // initialize width and height of watermark image
-    final image = ui.Image(imgHeight, imgWidth);
-    ui.drawImage(image, watermark);
-
-    // give position to watermark over image
-    ui.copyInto(
-      original,
+    final image = ui.Image(height: imgHeight, width: imgWidth);
+    ui.compositeImage(
       image,
+      watermark,
       dstX: dstX,
       dstY: dstY,
     );
